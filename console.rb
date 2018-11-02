@@ -4,6 +4,10 @@ require_relative('./models/film')
 
 require('pry-byebug')
 
+Customer.delete_all
+Film.delete_all
+Ticket.delete_all
+
 customer1 = Customer.new({'name' => 'Frank','wallet' => 50_000.50})
 customer2 = Customer.new({'name' => 'Dee','wallet' => 20.50})
 customer3 = Customer.new({'name' => 'Charlie','wallet' => 5.25})

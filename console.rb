@@ -13,12 +13,14 @@ customer2 = Customer.new({'name' => 'dEE','wallet' => 20.50})
 customer3 = Customer.new({'name' => 'ChArLie','wallet' => 5.25})
 customer4 = Customer.new({'name' => 'dENnis','wallet' => 400})
 customer5 = Customer.new({'name' => 'mac','wallet' => 40.50})
+customer6 = Customer.new({'name' => 'frank','wallet' => 1})
 
 customer1.save
 customer2.save
 customer3.save
 customer4.save
 customer5.save
+customer6.save
 
 film1 = Film.new({'title' => 'Lethal Weapon 6', 'price' => 4.25})
 film2 = Film.new({'title' => 'Avatar 2: The Avataring', 'price' => 85.50})

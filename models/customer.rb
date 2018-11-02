@@ -22,8 +22,18 @@ class Customer
     sql = "SELECT * FROM customers WHERE id = $1"
     values = [id]
     result = SqlRunner.run(sql, values)
+    return nil if result.count == 0
     found_customer = Customer.new(result[0])
     return found_customer
+  end
+
+  def self.find_by_name(name)
+    sql = "SELECT * FROM customers WHERE name = $1"
+    values = [name.downcase.capitalize]
+    results = SqlRunner.run(sql, values)
+    return nil if results.count == 0
+    found_customers = results.map {|customer| Customer.new(customer)}
+    return found_customers
   end
 
   # Instance functions

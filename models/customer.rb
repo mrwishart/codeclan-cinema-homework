@@ -1,10 +1,11 @@
 require_relative('../db/sqlrunner')
 require_relative('./film')
+require_relative('./ticket')
 
 class Customer
 
   attr_accessor :name
-  attr_reader :id, :wallet
+  attr_reader :id
 
   def initialize( params )
     @id = params['id'].to_i if params['id']
@@ -71,6 +72,26 @@ class Customer
     return nil if results.count == 0
     found_films = results.map{|film| Film.new(film)}
     return found_films
+  end
+
+  def buy_ticket(film)
+    #Check customer can afford
+    return nil if !can_afford?(film.price)
+    #Reduce money
+    spend_money(film.price)
+    #Create ticket
+    new_ticket = Ticket.new({'film_id' => film.id, 'customer_id' => @id})
+    #Save ticket to database
+    new_ticket.save
+
+  end
+
+  def can_afford?(price)
+    return @wallet >= price
+  end
+
+  def spend_money(amount)
+    @wallet -= amount if can_afford?(amount)
   end
 
 end

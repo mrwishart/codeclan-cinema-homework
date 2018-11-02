@@ -36,6 +36,7 @@ film4.save
 film5.save
 film6.save
 
+# Note: Pre-existing tickets. Any extra tickets after this will need to be run via customer.buy_ticket!
 
 ticket1 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer1.id})
 ticket2 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer2.id})

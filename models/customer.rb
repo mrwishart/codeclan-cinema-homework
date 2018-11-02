@@ -1,4 +1,5 @@
 require_relative('../db/sqlrunner')
+require_relative('./film')
 
 class Customer
 
@@ -36,7 +37,7 @@ class Customer
     return found_customers
   end
 
-  # Instance functions
+  # CRUD Instance functions
 
   def save()
     sql = "INSERT INTO customers (name, wallet) VALUES ($1, $2) RETURNING id"
@@ -55,6 +56,21 @@ class Customer
     sql = "DELETE FROM customers WHERE id = $1"
     values = [@id]
     SqlRunner.run(sql, values)
+  end
+
+  # Non-CRUD Instance functions
+
+  def films()
+    sql = "SELECT films.*
+    FROM films
+    INNER JOIN tickets
+    ON tickets.film_id = films.id
+    WHERE tickets.customer_id = $1"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    return nil if results.count == 0
+    found_films = results.map{|film| Film.new(film)}
+    return found_films
   end
 
 end

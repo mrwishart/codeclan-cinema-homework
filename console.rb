@@ -27,12 +27,14 @@ film2 = Film.new({'title' => 'Avatar 2: The Avataring', 'price' => 85.50})
 film3 = Film.new({'title' => 'Rocky VII: Adrians Revenge', 'price' => 5.50})
 film4 = Film.new({'title' => 'Kill Jar-Jar: A Star Wars Story', 'price' => 10.50})
 film5 = Film.new({'title' => 'The Contrabulous Fabtraption of Professor Horatio Hufnagel', 'price' => 1.05})
+film6 = Film.new({'title' => 'The Room', 'price' => 5.55})
 
 film1.save
 film2.save
 film3.save
 film4.save
 film5.save
+film6.save
 
 
 ticket1 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer1.id})

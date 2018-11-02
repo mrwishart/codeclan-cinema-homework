@@ -84,6 +84,10 @@ class Film
     return found_screenings
   end
 
+  def most_popular_screening()
+
+  end
+
 
   def no_of_screenings
     sql = "SELECT COUNT (*) FROM screenings WHERE film_id = $1;"

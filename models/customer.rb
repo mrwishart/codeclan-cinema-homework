@@ -92,7 +92,7 @@ class Customer
     #Save ticket to database
     new_ticket.save
     #Remove ticket from screening
-    screening.remove_ticket
+    screening.sold_ticket
     #Update screening
     screening.update
 

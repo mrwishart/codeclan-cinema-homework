@@ -44,6 +44,7 @@ screening3 = Screening.new({'film_id' => film2.id, 'remaining_tickets' => 50, 's
 screening4 = Screening.new({'film_id' => film3.id, 'remaining_tickets' => 2, 'start_time' => '21:30'})
 screening5 = Screening.new({'film_id' => film4.id, 'remaining_tickets' => 20, 'start_time' => '09:30'})
 screening6 = Screening.new({'film_id' => film5.id, 'remaining_tickets' => 4, 'start_time' => '12:30'})
+screening7 =  Screening.new({'film_id' => film2.id, 'remaining_tickets' => 50, 'start_time' => '22:30'})
 
 screening1.save
 screening2.save
@@ -51,6 +52,7 @@ screening3.save
 screening4.save
 screening5.save
 screening6.save
+screening7.save
 
 # Note: Pre-existing tickets. Any extra tickets after this will need to be run via customer.buy_ticket!
 

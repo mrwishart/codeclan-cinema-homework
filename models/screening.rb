@@ -11,8 +11,6 @@ class Screening
     @id = params['id'].to_i if params['id']
     @film_id = params['film_id'].to_i
     @remaining_tickets = params['remaining_tickets'].to_i
-    # Unless included in init, ticket_sold = 0
-    @tickets_sold = params['tickets_sold'] ? params['tickets_sold'].to_i : 0
     @start_time = params['start_time']
   end
 
@@ -62,15 +60,15 @@ class Screening
   # Instance functions
 
   def save()
-    sql = "INSERT INTO screenings (film_id, remaining_tickets, tickets_sold, start_time) VALUES ($1, $2, $3, $4) RETURNING id"
-    values = [@film_id, @remaining_tickets, @tickets_sold, @start_time]
+    sql = "INSERT INTO screenings (film_id, remaining_tickets, start_time) VALUES ($1, $2, $3) RETURNING id"
+    values = [@film_id, @remaining_tickets, @start_time]
     result = SqlRunner.run(sql, values)
     @id = result[0]['id'].to_i
   end
 
   def update()
-    sql = "UPDATE screenings SET (film_id, remaining_tickets, tickets_sold, start_time) = ($1, $2, $3, $4) WHERE id = $5"
-    values = [@film_id, @remaining_tickets, @tickets_sold, @start_time, @id]
+    sql = "UPDATE screenings SET (film_id, remaining_tickets, start_time) = ($1, $2, $3) WHERE id = $4"
+    values = [@film_id, @remaining_tickets, @start_time, @id]
     SqlRunner.run(sql, values)
   end
 
@@ -111,9 +109,7 @@ class Screening
   end
 
   def sold_ticket
-    return nil if !tickets_available?
-    @remaining_tickets -= 1
-    @tickets_sold += 1
+    @remaining_tickets -= 1 if tickets_available?
   end
 
   def tickets_available?

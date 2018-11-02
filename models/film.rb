@@ -73,7 +73,7 @@ class Film
     sql = "SELECT screenings.*
     FROM screenings
     WHERE screenings.film_id = $1
-    ORDER BY screenings.tickets_sold DESC;"
+    ORDER BY screenings.start_time;"
 
     values = [@id]
 
@@ -86,11 +86,27 @@ class Film
   end
 
   def most_popular_screening()
-    return screenings.first
-  end
+    sql = "SELECT *
+    FROM screenings
+    WHERE id =
+    (SELECT screening_id
+      FROM tickets
+      WHERE screening_id
+      IN
+      (SELECT       id
+        FROM     screenings
+        WHERE film_id = $1)
+      GROUP BY screening_id
+      ORDER BY COUNT(screening_id) DESC
+      LIMIT 1)
+    ;"
 
-  def least_popular_screening()
-    return screenings.last
+    values = [@id]
+
+    result = SqlRunner.run(sql, values)
+    return nil if result.count == 0
+
+    return Screening.new(result[0])
   end
 
 

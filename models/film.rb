@@ -102,7 +102,16 @@ class Film
   end
 
   def no_of_tickets_sold
-    return screenings.reduce(0){|total, screening| total + screening.tickets_sold}
+    sql = "SELECT COUNT(*)
+    FROM tickets
+    WHERE screening_id
+    IN
+    (SELECT       id
+    FROM     screenings
+    WHERE film_id = $1);"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    return results[0]['count'].to_i
   end
 
 end

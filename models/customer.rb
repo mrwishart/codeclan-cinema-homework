@@ -75,7 +75,8 @@ class Customer
   end
 
   def buy_ticket(film)
-    #Check customer can afford
+
+    #Exit function if customer can't afford
     return nil if !can_afford?(film.price)
     #Reduce money
     spend_money(film.price)
@@ -84,6 +85,13 @@ class Customer
     #Save ticket to database
     new_ticket.save
 
+  end
+
+  def no_of_tickets_bought
+    sql = "SELECT * FROM tickets WHERE customer_id = $1"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    return results.count
   end
 
   def can_afford?(price)

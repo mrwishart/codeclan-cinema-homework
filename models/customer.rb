@@ -62,10 +62,13 @@ class Customer
   # Non-CRUD Instance functions
 
   def films()
+    # UPDATE: need to extend to screenings table, then to films table
     sql = "SELECT films.*
     FROM films
+    INNER JOIN screenings
+    ON screenings.film_id = films.id
     INNER JOIN tickets
-    ON tickets.film_id = films.id
+    ON tickets.screening_id = screenings.id
     WHERE tickets.customer_id = $1"
     values = [@id]
     results = SqlRunner.run(sql, values)
@@ -74,6 +77,7 @@ class Customer
     return found_films
   end
 
+# UPDATE: Change to screening; create function for screening that checks film price
   def buy_ticket(film)
 
     #Exit function if customer can't afford

@@ -1,12 +1,14 @@
 require_relative('./models/customer')
 require_relative('./models/ticket')
 require_relative('./models/film')
+require_relative('./models/screening')
 
 require('pry-byebug')
 
 Customer.delete_all
 Film.delete_all
 Ticket.delete_all
+Screening.delete_all
 
 customer1 = Customer.new({'name' => 'Frank','wallet' => 50_000.50})
 customer2 = Customer.new({'name' => 'dEE','wallet' => 20.50})
@@ -36,16 +38,30 @@ film4.save
 film5.save
 film6.save
 
+screening1 = Screening.new({'film_id' => film1.id, 'remaining_tickets' => 200, 'start_time' => '14:30'})
+screening2 = Screening.new({'film_id' => film1.id, 'remaining_tickets' => 200, 'start_time' => '18:30'})
+screening3 = Screening.new({'film_id' => film2.id, 'remaining_tickets' => 50, 'start_time' => '17:30'})
+screening4 = Screening.new({'film_id' => film3.id, 'remaining_tickets' => 2, 'start_time' => '21:30'})
+screening5 = Screening.new({'film_id' => film4.id, 'remaining_tickets' => 20, 'start_time' => '09:30'})
+screening6 = Screening.new({'film_id' => film5.id, 'remaining_tickets' => 4, 'start_time' => '12:30'})
+
+screening1.save
+screening2.save
+screening3.save
+screening4.save
+screening5.save
+screening6.save
+
 # Note: Pre-existing tickets. Any extra tickets after this will need to be run via customer.buy_ticket!
 
-ticket1 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer1.id})
-ticket2 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer2.id})
-ticket3 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer3.id})
-ticket4 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer4.id})
-ticket5 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer5.id})
-ticket6 = Ticket.new({'film_id' => film5.id, 'customer_id' => customer2.id})
-ticket7 = Ticket.new({'film_id' => film3.id, 'customer_id' => customer4.id})
-ticket8 = Ticket.new({'film_id' => film3.id, 'customer_id' => customer1.id})
+ticket1 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer1.id})
+ticket2 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer2.id})
+ticket3 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer3.id})
+ticket4 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer4.id})
+ticket5 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer5.id})
+ticket6 = Ticket.new({'screening_id' => screening2.id, 'customer_id' => customer2.id})
+ticket7 = Ticket.new({'screening_id' => screening3.id, 'customer_id' => customer4.id})
+ticket8 = Ticket.new({'screening_id' => screening3.id, 'customer_id' => customer1.id})
 
 ticket1.save
 ticket2.save

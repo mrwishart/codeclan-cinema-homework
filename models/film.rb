@@ -55,7 +55,9 @@ class Film
     FROM customers
     INNER JOIN tickets
     ON tickets.customer_id = customers.id
-    WHERE tickets.film_id = $1"
+    INNER JOIN screenings
+    ON tickets.screening_id = screenings.id
+    WHERE tickets.screening_id = $1"
 
     values = [@id]
 
@@ -67,11 +69,30 @@ class Film
     return found_customers
   end
 
-  def no_of_tickets_sold
-    sql = "SELECT COUNT (*) FROM tickets WHERE film_id = $1;"
+  def screenings()
+    sql = "SELECT screenings.*
+    FROM screenings
+    WHERE screenings.film_id = $1"
+
+    values = [@id]
+
+    results = SqlRunner.run(sql, values)
+    return nil if results.count == 0
+
+    found_screenings = results.map{|screening| Screening.new(screening)}
+
+    return found_screenings
+  end
+
+  def no_of_screenings
+    sql = "SELECT COUNT (*) FROM screenings WHERE film_id = $1;"
     values = [@id]
     results = SqlRunner.run(sql, values)
     return results[0]['count'].to_i
+  end
+
+  def no_of_tickets_sold
+    return screenings.reduce(0){|total, screening| total + screening.tickets_sold}
   end
 
 end

@@ -35,6 +35,12 @@ class Customer
     @id = result[0]['id'].to_i
   end
 
+  def update()
+    sql = "UPDATE customers SET (name, wallet) = ($1, $2) WHERE id = $3"
+    values = [@name, @wallet, @id]
+    SqlRunner.run(sql, values)
+  end
+
   def delete()
     sql = "DELETE FROM customers WHERE id = $1"
     values = [@id]

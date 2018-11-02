@@ -22,6 +22,13 @@ film3 = Film.new({'title' => 'Rocky VII: Adrians Revenge', 'price' => 5.50})
 film4 = Film.new({'title' => 'Kill Jar-Jar: A Star Wars Story', 'price' => 10.50})
 film5 = Film.new({'title' => 'The Contrabulous Fabtraption of Professor Horatio Hufnagel', 'price' => 1.05})
 
+film1.save
+film2.save
+film3.save
+film4.save
+film5.save
+
+
 ticket1 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer1.id})
 ticket2 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer2.id})
 ticket3 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer3.id})
@@ -30,6 +37,15 @@ ticket5 = Ticket.new({'film_id' => film1.id, 'customer_id' => customer5.id})
 ticket6 = Ticket.new({'film_id' => film5.id, 'customer_id' => customer2.id})
 ticket7 = Ticket.new({'film_id' => film3.id, 'customer_id' => customer4.id})
 ticket8 = Ticket.new({'film_id' => film3.id, 'customer_id' => customer1.id})
+
+ticket1.save
+ticket2.save
+ticket3.save
+ticket4.save
+ticket5.save
+ticket6.save
+ticket7.save
+ticket8.save
 
 binding.pry
 nil

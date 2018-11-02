@@ -54,23 +54,32 @@ screening6.save
 
 # Note: Pre-existing tickets. Any extra tickets after this will need to be run via customer.buy_ticket!
 
-ticket1 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer1.id})
-ticket2 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer2.id})
-ticket3 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer3.id})
-ticket4 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer4.id})
-ticket5 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer5.id})
-ticket6 = Ticket.new({'screening_id' => screening2.id, 'customer_id' => customer2.id})
-ticket7 = Ticket.new({'screening_id' => screening3.id, 'customer_id' => customer4.id})
-ticket8 = Ticket.new({'screening_id' => screening3.id, 'customer_id' => customer1.id})
+customer1.buy_ticket(screening1)
+customer2.buy_ticket(screening1)
+customer3.buy_ticket(screening1)
+customer4.buy_ticket(screening1)
+customer5.buy_ticket(screening1)
+customer2.buy_ticket(screening2)
+customer4.buy_ticket(screening3)
+customer1.buy_ticket(screening3)
 
-ticket1.save
-ticket2.save
-ticket3.save
-ticket4.save
-ticket5.save
-ticket6.save
-ticket7.save
-ticket8.save
+# ticket1 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer1.id})
+# ticket2 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer2.id})
+# ticket3 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer3.id})
+# ticket4 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer4.id})
+# ticket5 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer5.id})
+# ticket6 = Ticket.new({'screening_id' => screening2.id, 'customer_id' => customer2.id})
+# ticket7 = Ticket.new({'screening_id' => screening3.id, 'customer_id' => customer4.id})
+# ticket8 = Ticket.new({'screening_id' => screening3.id, 'customer_id' => customer1.id})
+#
+# ticket1.save
+# ticket2.save
+# ticket3.save
+# ticket4.save
+# ticket5.save
+# ticket6.save
+# ticket7.save
+# ticket8.save
 
 binding.pry
 nil

@@ -72,7 +72,8 @@ class Film
   def screenings()
     sql = "SELECT screenings.*
     FROM screenings
-    WHERE screenings.film_id = $1"
+    WHERE screenings.film_id = $1
+    ORDER BY screenings.tickets_sold DESC;"
 
     values = [@id]
 
@@ -85,7 +86,11 @@ class Film
   end
 
   def most_popular_screening()
+    return screenings.first
+  end
 
+  def least_popular_screening()
+    return screenings.last
   end
 
 

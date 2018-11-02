@@ -12,7 +12,7 @@ class Screening
     @film_id = params['film_id'].to_i
     @remaining_tickets = params['remaining_tickets'].to_i
     # Unless included in init, ticket_sold = 0
-    @tickets_sold = params['tickets_sold'] ? params['tickets_sold'] : 0
+    @tickets_sold = params['tickets_sold'] ? params['tickets_sold'].to_i : 0
     @start_time = params['start_time']
   end
 
@@ -32,12 +32,22 @@ class Screening
   end
 
   def self.all
-    sql = "SELECT * FROM screenings"
+    sql = "SELECT * FROM screenings ORDER BY screenings.start_time"
     results = SqlRunner.run(sql)
     return results.map{|screening| Screening.new(screening)}
   end
 
-  def self.display_by_time
+  def self.remaining(time)
+    sql = "SELECT *
+    FROM screenings
+    WHERE screenings.start_time > $1
+    ORDER BY screenings.start_time"
+    values = [time]
+    results = SqlRunner.run(sql, values)
+    return results.map{|screening| Screening.new(screening)}
+  end
+
+  def self.print_screentimes
     sql = "SELECT films.title, screenings.start_time
     FROM screenings
     INNER JOIN films

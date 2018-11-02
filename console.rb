@@ -9,10 +9,10 @@ Film.delete_all
 Ticket.delete_all
 
 customer1 = Customer.new({'name' => 'Frank','wallet' => 50_000.50})
-customer2 = Customer.new({'name' => 'Dee','wallet' => 20.50})
-customer3 = Customer.new({'name' => 'Charlie','wallet' => 5.25})
-customer4 = Customer.new({'name' => 'Dennis','wallet' => 400})
-customer5 = Customer.new({'name' => 'Mac','wallet' => 40.50})
+customer2 = Customer.new({'name' => 'dEE','wallet' => 20.50})
+customer3 = Customer.new({'name' => 'ChArLie','wallet' => 5.25})
+customer4 = Customer.new({'name' => 'dENnis','wallet' => 400})
+customer5 = Customer.new({'name' => 'mac','wallet' => 40.50})
 
 customer1.save
 customer2.save

@@ -18,6 +18,14 @@ class Film
     SqlRunner.run(sql)
   end
 
+  def self.find_by_id(id)
+    sql = "SELECT * FROM films WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)
+    found_film = Film.new(result[0])
+    return found_film
+  end
+
   # Instance functions
 
   def save()

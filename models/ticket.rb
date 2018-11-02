@@ -18,6 +18,14 @@ class Ticket
     SqlRunner.run(sql)
   end
 
+  def self.find_by_id(id)
+    sql = "SELECT * FROM tickets WHERE id = $1"
+    values = [id]
+    result = SqlRunner.run(sql, values)
+    found_ticket = Ticket.new(result[0])
+    return found_ticket
+  end
+
   # Instance functions
 
   def save()

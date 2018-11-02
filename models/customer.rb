@@ -88,10 +88,10 @@ class Customer
   end
 
   def no_of_tickets_bought
-    sql = "SELECT * FROM tickets WHERE customer_id = $1"
+    sql = "SELECT COUNT (*) FROM tickets WHERE customer_id = $1;"
     values = [@id]
     results = SqlRunner.run(sql, values)
-    return results.count
+    return results[0]['count'].to_i
   end
 
   def can_afford?(price)

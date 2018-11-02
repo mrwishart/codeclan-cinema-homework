@@ -1,4 +1,5 @@
 require_relative('../db/sqlrunner')
+require_relative('./customer')
 
 class Screening
 
@@ -49,11 +50,34 @@ class Screening
     SqlRunner.run(sql, values)
   end
 
+  def customers
+    sql = "SELECT customers.*
+    FROM customers
+    INNER JOIN tickets
+    ON tickets.customer_id = customers.id
+    WHERE tickets.screening_id = $1"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    return nil if results.count == 0
+
+    found_customers = results.map{|customer| Customer.new(customer)}
+
+    return found_customers
+
+  end
+
   def tickets_sold
     sql = "SELECT COUNT (*) FROM tickets WHERE screening_id = $1;"
     values = [@id]
     results = SqlRunner.run(sql, values)
     return results[0]['count'].to_i
+  end
+
+  def price
+    sql = "SELECT * FROM films WHERE id = $1"
+    values = [@film_id]
+    results = SqlRunner.run(sql, values)
+    return results[0]['price'].to_f.round(2)
   end
 
 end

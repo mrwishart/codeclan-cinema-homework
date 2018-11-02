@@ -1,6 +1,7 @@
 require_relative('../db/sqlrunner')
 require_relative('./film')
 require_relative('./ticket')
+require_relative('./FilmScreening')
 
 class Customer
 
@@ -61,9 +62,10 @@ class Customer
 
   # Non-CRUD Instance functions
 
+  # Note: With addition of screenings, updated film method to give the title of the film and start time. Added 5th class: FilmScreening to better reflect this
+
   def films()
-    # UPDATE: need to extend to screenings table, then to films table
-    sql = "SELECT films.*
+    sql = "SELECT films.title, screenings.start_time
     FROM films
     INNER JOIN screenings
     ON screenings.film_id = films.id
@@ -73,19 +75,21 @@ class Customer
     values = [@id]
     results = SqlRunner.run(sql, values)
     return nil if results.count == 0
-    found_films = results.map{|film| Film.new(film)}
-    return found_films
+    found_filmtimes = results.map{|filmtime| FilmScreening.new(filmtime)}
+    return found_filmtimes
   end
 
-# UPDATE: Change to screening; create function for screening that checks film price
-  def buy_ticket(film)
+# UPDATE: Changed to screening; created function for screening that checks film price
+  def buy_ticket(screening)
 
     #Exit function if customer can't afford
-    return nil if !can_afford?(film.price)
+    return nil if !can_afford?(screening.price)
     #Reduce money
-    spend_money(film.price)
+    spend_money(screening.price)
+    #Update customer
+    update
     #Create ticket
-    new_ticket = Ticket.new({'film_id' => film.id, 'customer_id' => @id})
+    new_ticket = Ticket.new({'screening_id' => screening.id, 'customer_id' => @id})
     #Save ticket to database
     new_ticket.save
 

@@ -29,6 +29,12 @@ class Screening
     return found_screening
   end
 
+  def self.all
+    sql = "SELECT * FROM screenings"
+    results = SqlRunner.run(sql)
+    return results.map{|screening| Screening.new(screening)}
+  end
+
   # Instance functions
 
   def save()
@@ -78,6 +84,14 @@ class Screening
     values = [@film_id]
     results = SqlRunner.run(sql, values)
     return results[0]['price'].to_f.round(2)
+  end
+
+  def remove_ticket
+    @remaining_tickets -= 1 if tickets_available?
+  end
+
+  def tickets_available?
+    return @remaining_tickets > 0
   end
 
 end

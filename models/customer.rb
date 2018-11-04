@@ -61,7 +61,21 @@ class Customer
 
   # Non-CRUD Instance functions
 
-  # Note: With addition of screenings, updated film method to give the title of the film and start time. Added 5th class: FilmScreening to better reflect this
+  # Note: With addition of screenings, updated film method to give the title of the film and start time.
+
+  def screenings()
+    sql = "SELECT screenings.*
+    FROM screenings
+    INNER JOIN tickets
+    ON screenings.id = tickets.screening_id
+    WHERE tickets.customer_id = $1"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    return nil if results.count == 0
+    found_screenings = results.map{|film| Screening.new(film)}
+    return found_screenings
+
+  end
 
   def films()
     sql = "SELECT films.*

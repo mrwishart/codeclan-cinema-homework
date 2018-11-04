@@ -54,8 +54,6 @@ screening5.save
 screening6.save
 screening7.save
 
-# Note: Pre-existing tickets. Any extra tickets after this will need to be run via customer.buy_ticket!
-
 customer1.buy_ticket(screening1)
 customer2.buy_ticket(screening1)
 customer3.buy_ticket(screening1)
@@ -64,6 +62,8 @@ customer5.buy_ticket(screening1)
 customer2.buy_ticket(screening2)
 customer4.buy_ticket(screening3)
 customer1.buy_ticket(screening3)
+
+# Originally tested with pre-created tickets. Changed to buy_ticket after that method was written.
 
 # ticket1 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer1.id})
 # ticket2 = Ticket.new({'screening_id' => screening1.id, 'customer_id' => customer2.id})
